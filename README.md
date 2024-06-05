@@ -38,10 +38,10 @@ adventure-works/
 
 The docker-compose.yml file uses the following environment variables for SQL Server configuration:
 
-- SA_PASSWORD: The password for the SA (System Administrator) account.
+- MSSQL_SA_PASSWORD: The password for the SA (System Administrator) account.
 - ACCEPT_EULA: Set to Y to accept the End User License Agreement.
 
-You can modify these directly in the docker-compose.yml file if needed.
+You can modify these directly in the docker-compose.yml file if needed. If you do modify the `MSSQL_SA_PASSWORD` variable, find and replace the password on the docker compose file. There should be a total of 3 references for that variable.
 
 ### 4. Start the Containers
 
