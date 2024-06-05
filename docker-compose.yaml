@@ -1,11 +1,12 @@
-version: '3.8'
+version: "3.8"
 
 services:
   sqlserver:
-    image: mcr.microsoft.com/mssql/server:2019-latest
+    image: mcr.microsoft.com/mssql/server:2022-CU12-ubuntu-22.04
     container_name: sqlserver
     environment:
-      SA_PASSWORD: "YourStrong!Passw0rd"
+      MSSQL_SA_PASSWORD: "YourStrong!Passw0rd"
+      MSSQL_PID: "Express"
       ACCEPT_EULA: "Y"
     ports:
       - "1433:1433"
@@ -21,7 +22,7 @@ services:
       SA_PASSWORD: "YourStrong!Passw0rd"
     volumes:
       - ./import-data:/var/opt/mssql/backups
-    entrypoint: /bin/bash -c "sleep 30s && /opt/mssql-tools/bin/sqlcmd -S sqlserver -U SA -P 'YourStrong!Passw0rd' -Q 'RESTORE DATABASE [AdventureWorks] FROM DISK = \"/var/opt/mssql/backups/AdventureWorks.bak\" WITH MOVE \"AdventureWorks_Data\" TO \"/var/opt/mssql/data/AdventureWorks.mdf\", MOVE \"AdventureWorks_Log\" TO \"/var/opt/mssql/data/AdventureWorks.ldf\"' && exit 0"
+    entrypoint: /bin/bash -c "sleep 30s && /opt/mssql-tools/bin/sqlcmd -S sqlserver -U SA -P 'YourStrong!Passw0rd' -i /var/opt/mssql/backups/restore-backup.sql"
 
 volumes:
   sql_data:
