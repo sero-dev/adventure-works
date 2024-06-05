@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: sqlserver
+    environment:
+      SA_PASSWORD: "YourStrong!Passw0rd"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
+      - ./import-data:/var/opt/mssql/backups
+
+  import-data:
+    image: mcr.microsoft.com/mssql-tools
+    depends_on:
+      - sqlserver
+    environment:
+      SA_PASSWORD: "YourStrong!Passw0rd"
+    volumes:
+      - ./import-data:/var/opt/mssql/backups
+    entrypoint: /bin/bash -c "sleep 30s && /opt/mssql-tools/bin/sqlcmd -S sqlserver -U SA -P 'YourStrong!Passw0rd' -Q 'RESTORE DATABASE [AdventureWorks] FROM DISK = \"/var/opt/mssql/backups/AdventureWorks.bak\" WITH MOVE \"AdventureWorks_Data\" TO \"/var/opt/mssql/data/AdventureWorks.mdf\", MOVE \"AdventureWorks_Log\" TO \"/var/opt/mssql/data/AdventureWorks.ldf\"' && exit 0"
+
+volumes:
+  sql_data:
