@@ -21,9 +21,9 @@ git clone https://github.com/sero-dev/adventure-works
 
 ### 2. Prepare the Backup File
 
-Download the AdventureWorks backup file from a [trusted source](https://learn.microsoft.com/en-us/sql/samples/adventureworks-install-configure?view=sql-server-ver16&tabs=ssms). Depending on which backup you use, you may need to rename the file to `AdventureWorks.bak`.
+Download the AdventureWorks2022 backup file from a [trusted source](https://learn.microsoft.com/en-us/sql/samples/adventureworks-install-configure?view=sql-server-ver16&tabs=ssms). Depending on which backup you use, you may need to rename the file to `AdventureWorks2022.bak`.
 
-Place your AdventureWorks.bak file in a directory named import-data within the root of the repository. The structure should look like this:
+Place your AdventureWorks2022.bak file in a directory named import-data within the root of the repository. The structure should look like this:
 
 ```
 adventure-works/
@@ -31,7 +31,7 @@ adventure-works/
 ├── README.md
 └── import-data/
     ├── .gitkeep
-    └── AdventureWorks.bak
+    └── AdventureWorks2022.bak
 ```
 
 ### 3. Configure Environment Variables
@@ -45,7 +45,7 @@ You can modify these directly in the docker-compose.yml file if needed. If you d
 
 ### 4. Start the Containers
 
-Run the following command to start the Docker containers and import the AdventureWorks database:
+Run the following command to start the Docker containers and import the AdventureWorks 2022 database:
 
 ```sh
 docker-compose up
@@ -55,7 +55,7 @@ Docker Compose will perform the following steps:
 
 - Start a SQL Server instance.
 - Use the import-data service to wait for the SQL Server instance to be ready.
-- Import the AdventureWorks.bak file into the SQL Server instance.
+- Import the AdventureWorks2022.bak file into the SQL Server instance.
 
 ### 5. Connect to SQL Server
 
@@ -91,5 +91,5 @@ docker-compose down
 If you encounter issues, ensure that:
 
 - Docker and Docker Compose are correctly installed.
-- The AdventureWorks.bak file is correctly placed in the import-data directory.
+- The AdventureWorks2022.bak file is correctly placed in the import-data directory.
 - The environment variables in docker-compose.yml are correctly configured.
