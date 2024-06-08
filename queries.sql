@@ -61,19 +61,23 @@ ORDER BY ProductID
 
 --10. From the following table write a query in SQL to find the total quentity for a group of locationid multiplied by 10.
 --Sample table: production.productinventory
-SELECT SUM(Quantity)
-FROM Production.ProductInventory
-GROUP BY LocationID
-
 SELECT SUM(Quantity) [TotalQuantity]
 FROM Production.ProductInventory
 GROUP BY (LocationID * 10)
 
 --11. From the following tables write a query in SQL to find the persons whose last name starts with letter 'L'. Return BusinessEntityID, FirstName, LastName, and PhoneNumber. Sort the result on lastname and firstname.
 --Sample table: Person.PersonPhone
+SELECT Person.BusinessEntityID, Person.FirstName, Person.LastName, Phone.PhoneNumber
+FROM Person.PersonPhone Phone
+JOIN Person.Person Person
+	ON Person.BusinessEntityID = Phone.BusinessEntityID
+WHERE Person.LastName LIKE 'L%'
+ORDER BY LastName, FirstName
 
 --12. From the following table write a query in SQL to find the sum of subtotal column. Group the sum on distinct salespersonid and customerid. Rolls up the results into subtotal and running total. Return salespersonid, customerid and sum of subtotal column i.e. sum_subtotal.
 --Sample table: sales.salesorderheader
+SELECT *
+FROM Sales.SalesOrderHeader
 
 --13. From the following table write a query in SQL to find the sum of the quantity of all combination of group of distinct locationid and shelf column. Return locationid, shelf and sum of quantity as TotalQuantity.
 --Sample table: production.productinventory
